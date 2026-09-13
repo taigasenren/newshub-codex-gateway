@@ -1,0 +1,19 @@
+# Use this file from the gateway source directory.
+# Deployment requires a Render workspace with no payment method for a strict
+# zero-charge setup. Free compute alone does not cap paid bandwidth overages.
+services:
+  - type: web
+    name: newshub-codex-gateway-free
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci --omit=dev --no-audit --no-fund
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeployTrigger: off
+    envVars:
+      - key: NODE_VERSION
+        value: '22'
+      - key: NEWSHUB_PAIRING_KEY
+        generateValue: true
+# No databases, persistent disks, cron jobs, or paid worker services.

@@ -1,0 +1,12 @@
+services:
+  gateway:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8788:8788"
+    volumes:
+      - gateway-data:/app/data
+      - codex-account:/home/node/.codex
+volumes:
+  gateway-data:
+  codex-account:
